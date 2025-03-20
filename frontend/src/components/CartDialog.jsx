@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { forwardRef, useRef, useImperativeHandle, useContext } from "react";
-import { getCartItems, updateOrder, removeOrder, order, cancel } from "../api/noodleApi";
-import { CartContext } from "../context/CartContextProvider";
+import { getCartItems, updateOrder, removeOrder, order, cancel } from "@api/noodleApi";
+import { CartContext } from "@context/CartContextProvider";
 import { useNavigate } from "react-router-dom";
 
 const CartDialog = forwardRef(({}, ref) => {
@@ -43,13 +43,13 @@ const CartDialog = forwardRef(({}, ref) => {
     }
 
     const handleResetItem = async (isSubmit = false) => {
-        if (cartContext.items.length === 0) {
-            alert('Cart is empty!')
-
-            return
-        }
-
         if (isSubmit) {
+            if (cartContext.items.length === 0) {
+                alert('Cart is empty!')
+    
+                return
+            }
+
             try {
                 await order()
             } catch (error) {
@@ -131,7 +131,7 @@ const CartDialog = forwardRef(({}, ref) => {
             </div>
             <div id="button-area" className="flex justify-evenly mb-4">
                 <button 
-                    onClick={handleResetItem}
+                    onClick={() => handleResetItem()}
                     className="font-bangers hover:cursor-pointer text-xl bg-[#F41959] px-4 sm:px-10 py-3 text-white rounded-xl border-3 border-black relative"
                 >
                     Cancal Order

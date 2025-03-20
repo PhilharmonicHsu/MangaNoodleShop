@@ -1,7 +1,7 @@
 import './App.css'
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
+import HomePage from '@pages/HomePage';
+import LoginPage from '@pages/LoginPage';
+import SignUpPage from '@pages/SignUpPage';
 import CartContextProvider from './context/CartContextProvider.jsx';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 

@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import CartDialog from "./CartDialog";
 import { useEffect, useRef, useContext } from "react";
-import { getCartItems } from "../api/noodleApi";
-import { CartContext } from "../context/CartContextProvider";
+import { getCartItems } from "@api/noodleApi";
+import { CartContext } from "@context/CartContextProvider";
 
 export default function ComicButton() {
     const dialogRef = useRef()

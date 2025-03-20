@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { getReceipts } from "../api/noodleApi"
-
+import { getReceipts } from "@api/noodleApi"
 import Rate from "./Rate.jsx";
 import AddToCart from "./AddToCart.jsx";
 

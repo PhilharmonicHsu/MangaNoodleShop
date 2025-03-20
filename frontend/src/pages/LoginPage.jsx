@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import Footer from '../components/Footer'
 import { useNavigate } from "react-router-dom";
-import { login } from '../api/userApi';
+import { login } from '@api/userApi';
 
 
 export default function LoginPage() {

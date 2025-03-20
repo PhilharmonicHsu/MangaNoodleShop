@@ -1,9 +1,9 @@
 import ComicButton from "./ComicButton";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { CartContext } from "../context/CartContextProvider";
+import { CartContext } from "@context/CartContextProvider";
 import { useContext } from "react";
-import {logout} from '../api/userApi'
+import {logout} from '@api/userApi'
 
 export default function Header({userInfo, isLogin}) {
     const navigate = useNavigate();

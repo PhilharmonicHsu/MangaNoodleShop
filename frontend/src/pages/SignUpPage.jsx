@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import Footer from '../components/Footer'
 import { useNavigate } from "react-router-dom";
-import { register } from '../api/userApi';
+import { register } from '@api/userApi';
 
 export default function SignUpPage() {
     const navigate = useNavigate();

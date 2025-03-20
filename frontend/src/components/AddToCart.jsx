@@ -1,7 +1,7 @@
 
 import { useContext } from "react";
-import { orderNoodle, getCartItems } from "../api/noodleApi"
-import { CartContext } from "../context/CartContextProvider";
+import { orderNoodle, getCartItems } from "@api/noodleApi"
+import { CartContext } from "@context/CartContextProvider";
 
 
 export default function AddToCart({receiptId}) {
