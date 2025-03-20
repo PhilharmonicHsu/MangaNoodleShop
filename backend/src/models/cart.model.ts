@@ -57,6 +57,12 @@ class CartModel {
 
         return true;
     }
+
+    reset() {
+        cartItems.length = 0
+
+        return true;
+    }
 }
 
 export default new CartModel;

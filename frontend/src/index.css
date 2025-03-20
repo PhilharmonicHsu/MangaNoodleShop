@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import "tailwindcss";
+
+.font-bangers {
+    font-family: 'Bangers', cursive;
+}
+
+/* body {
+    background-color: #FCFCE3;
+} */

@@ -3,9 +3,11 @@ import express, {Request, Response} from 'express'
 import cookieSession from 'cookie-session'
 import receiptRouter from './routes/receipt.routes'
 import bannerRouter from './routes/banner.routes'
+import cartRouter from './routes/cartItem.route'
+import userRouter from './routes/user.routes'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import cartRouter from './routes/cartItem.route'
+
 dotenv.config()
 
 const app = express();
@@ -25,7 +27,7 @@ app.use(cookieSession({
   maxAge: 5 * 60 * 1000
 }))
 app.use(cors({
-    origin: 'http://localhost:4321',
+    origin: 'http://localhost:5173',
     credentials: true
 }))
 app.use(express.json())
@@ -33,7 +35,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/receipts', receiptRouter)
 app.use('/banners', bannerRouter)
 app.use('/cart-items', cartRouter)
-
+app.use('/users', userRouter)
 
 app.use((request: Request, response: Response) => {
     response.status(404).send("Page not found!")

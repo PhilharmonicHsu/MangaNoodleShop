@@ -7,5 +7,6 @@ cartRouter.get('/', cartController.getCartItems)
 cartRouter.post('/', cartController.addItem)
 cartRouter.put('/:id', cartController.udpateItem)
 cartRouter.delete('/:id', cartController.deleteItem)
+cartRouter.post('/reset', cartController.resetItem)
 
 export default cartRouter
