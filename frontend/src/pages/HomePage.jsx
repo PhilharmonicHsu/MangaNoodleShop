@@ -14,8 +14,12 @@ export default function HomePage() {
         const fetchUserInfo = async () => {
             try {
                 const userInfo = await checkAuth();
-                setUserInfo(userInfo)
-                cartContext.toggleIsLogin(true)
+                if (userInfo) {
+                    setUserInfo(userInfo)
+                    cartContext.toggleIsLogin(true)
+                } else {
+                    cartContext.toggleIsLogin(false)
+                }
             } catch (error) {
                 cartContext.toggleIsLogin(false)
             }

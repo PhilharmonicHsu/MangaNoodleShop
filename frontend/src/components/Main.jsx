@@ -7,7 +7,6 @@ import AddToCart from "./AddToCart.jsx";
 export default function Main() {
     const [receipts, setReceipts] = useState([]);
     
-
     useEffect(() => {
         const fetchNoodles = async () => {
             try {

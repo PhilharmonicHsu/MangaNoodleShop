@@ -27,7 +27,11 @@ export const checkAuth = async () => {
     
     return response.data;
   } catch (error) {
-    throw error;
+    if (error.response.status === 401) {
+      return null;
+    }
+
+    throw error
   }
 }
 

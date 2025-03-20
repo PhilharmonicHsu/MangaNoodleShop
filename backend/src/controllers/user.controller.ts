@@ -27,7 +27,7 @@ const getUserByUsername = (req: Request, res: Response) => {
         res.status(200).json(user)
     }
 
-    res.status(404).send('User not found!')
+    res.status(401).json({message: 'User not found!'})
 }
 
 /**
@@ -40,14 +40,14 @@ const getUserByUsername = (req: Request, res: Response) => {
 const addUser = async (req: Request<{}, {}, Omit<User, 'id'>>, res: Response) => {
   const { username, password, firstname, lastname } = req.body
   if (!username || !password) {
-    res.status(500).json({ message: 'Username/password is empty!' })
+    res.status(422).json({ message: 'Username/password is empty!' })
 
     return
   }
 
   const user = await userModel.create({ username, password, firstname, lastname })
   if (!user) {
-    res.status(409).json({ message: 'Username is taken!' })
+    res.status(401).json({ message: 'Username is taken!' })
 
     return
   }
@@ -65,14 +65,14 @@ const addUser = async (req: Request<{}, {}, Omit<User, 'id'>>, res: Response) =>
 const loginUser = async (req: Request<{}, {}, Omit<User, 'id'>>, res: Response) => {
   const { username, password } = req.body
   if (!username || !password) {
-    res.status(500).json({message: "Username/password is missing!"})
+    res.status(401).json({message: "Username/password is missing!"})
 
     return
   }
   const user = await userModel.login(username, password)
 
   if (!user) {
-    res.status(500).json({message: "Username/password is missing!"})
+    res.status(401).json({message: "Username/password is missing!"})
 
     return
   }

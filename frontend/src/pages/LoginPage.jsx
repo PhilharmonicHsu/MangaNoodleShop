@@ -14,14 +14,16 @@ export default function LoginPage() {
             username: usernameRef.current.value,
             password: passwordRef.current.value
         }
-        const res = await login(inputData)
-        if (res.status === 200) {
-            navigate("/")
-
-            return
+        try {
+            const res = await login(inputData)
+            if (res.status === 200) {
+                navigate("/")
+    
+                return
+            }
+        } catch (error) {
+            alert(error.response.data.message);
         }
-
-        alert(res.data.message);
     }
 
     return <div className='flex flex-col h-full justify-center items-center'>
