@@ -1,9 +1,13 @@
 import api from "./api";
 
 // 取得所有麵類品項
-export const getReceipts = async () => {
+export const getReceipts = async (keyword = null) => {
   try {
-    const response = await api.get("/receipts");
+    const url = (keyword)
+      ? `/receipts?name=${keyword}`
+      : "/receipts"
+
+    const response = await api.get(url);
     
     return response.data;
   } catch (error) {
@@ -60,12 +64,23 @@ export const removeOrder = async (orderId) => {
   }
 }
 
-export const resetOrder = async () => {
+export const order = async () => {
   try {
-    const response = await api.post(`/cart-items/reset`, {});
+    const response = await api.post(`/cart-items/order`, {});
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const cancel = async () => {
+  try {
+    const response = await api.post(`/cart-items/cancel`, {});
 
     return response.data;
   } catch (error) {
     throw error;
   }
 }
+

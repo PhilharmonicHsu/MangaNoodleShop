@@ -1,0 +1,12 @@
+# 建構階段：使用 Node.js 來打包 React
+FROM node:18 AS builder
+WORKDIR /manga-front
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=builder /manga-front/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

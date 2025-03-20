@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { forwardRef, useRef, useImperativeHandle, useContext } from "react";
-import { getCartItems, updateOrder, removeOrder, resetOrder } from "../api/noodleApi";
+import { getCartItems, updateOrder, removeOrder, order, cancel } from "../api/noodleApi";
 import { CartContext } from "../context/CartContextProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -43,15 +43,26 @@ const CartDialog = forwardRef(({}, ref) => {
     }
 
     const handleResetItem = async (isSubmit = false) => {
+        if (cartContext.items.length === 0) {
+            alert('Cart is empty!')
+
+            return
+        }
+
         if (isSubmit) {
-            if (! cartContext.isLogin) {
-                alert('Please log in as a member first!')
-                navigate('/login')
+            try {
+                await order()
+            } catch (error) {
+                if (error.response.status === 301) {
+                    alert('Please log in as a member first!')
+                    navigate('/login')
+                }
             }
-        } 
+        } else {
+            await cancel()
+        }
 
         try {
-            await resetOrder()
             const data = await getCartItems()
             cartContext.updateItems(data.orders)
             cartContext.updateTotalPrice(data.total)

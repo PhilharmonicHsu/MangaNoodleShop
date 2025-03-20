@@ -32,6 +32,18 @@ export default function Main() {
         return classes.join(' ')
     }
 
+    const handleSearchReceipts = async (e) => {
+        console.log(123);
+        
+        const name = e.target.value;
+        try {
+            const data = await getReceipts(name);
+            setReceipts(data)
+        } catch (error) {
+          console.error("Error fetching noodles:", error);
+        }
+    }
+
     return <div className="
                     pb-30 pt-4 bg-[#FCFCE3] 
                     px-10 lg:px-30
@@ -39,6 +51,12 @@ export default function Main() {
             >
         <div className="flex justify-between items-center">
             <div className="text-6xl font-bangers my-4">Menu</div>
+            <input 
+                type="text" 
+                placeholder="Search Receipt..."
+                className="bg-white px-1 border-1 rounded-lg w-80 h-10" 
+                onChange={(e)=> handleSearchReceipts(e)}
+            />
         </div>
 
         <section className="menu-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

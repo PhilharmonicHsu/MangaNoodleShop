@@ -1,16 +1,16 @@
-import { Receipt } from "types/receipt";
-
-const receipts: Receipt[] = [
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const receipts = [
     {
         id: "uewnhdofiluhq",
         name: "Tonkotsu Ramen",
         ingredients: [
-            "Tonkotsu broth", 
-            "ramen", 
-            "barbecued pork", 
-            "soft-boiled eggs", 
-            "seaweed", 
-            "green onions", 
+            "Tonkotsu broth",
+            "ramen",
+            "barbecued pork",
+            "soft-boiled eggs",
+            "seaweed",
+            "green onions",
             "black fungus"
         ],
         calories: 650,
@@ -22,10 +22,10 @@ const receipts: Receipt[] = [
         id: "nvwpflbueidwv",
         name: "Carbonara Pasta",
         ingredients: [
-            "Spaghetti", 
-            "pancetta", 
-            "egg yolk", 
-            "Parmesan cheese", 
+            "Spaghetti",
+            "pancetta",
+            "egg yolk",
+            "Parmesan cheese",
             "black pepper"
         ],
         calories: 550,
@@ -37,10 +37,10 @@ const receipts: Receipt[] = [
         id: "ckfdw;miofv[",
         name: "Taiwanese Beef Noodles",
         ingredients: [
-            "Beef broth", 
-            "beef shank", 
-            "ramen noodles", 
-            "bok choy", 
+            "Beef broth",
+            "beef shank",
+            "ramen noodles",
+            "bok choy",
             "pickled mustard greens"
         ],
         calories: 700,
@@ -52,11 +52,11 @@ const receipts: Receipt[] = [
         id: "fpn8ev1ijnwpq",
         name: "Spicy Tteokbokki Ramen",
         ingredients: [
-            "Korean ramen", 
-            "tteok (rice cakes)", 
-            "gochujang", 
-            "fish cakes", 
-            "scallions", 
+            "Korean ramen",
+            "tteok (rice cakes)",
+            "gochujang",
+            "fish cakes",
+            "scallions",
             "sesame seeds"
         ],
         calories: 650,
@@ -68,12 +68,12 @@ const receipts: Receipt[] = [
         id: "veubfhwo",
         name: "Dan Dan Noodles",
         ingredients: [
-            "Thin wheat noodles", 
-            "peanut butter", 
-            "sesame paste", 
-            "chili oil", 
-            "Sichuan peppercorns", 
-            "scallions", 
+            "Thin wheat noodles",
+            "peanut butter",
+            "sesame paste",
+            "chili oil",
+            "Sichuan peppercorns",
+            "scallions",
             "crushed peanuts"
         ],
         calories: 500,
@@ -85,11 +85,11 @@ const receipts: Receipt[] = [
         id: "wpiomjcdq-cj",
         name: "Tom Yum Seafood Noodles",
         ingredients: [
-            "Tom Yum broth", 
-            "shrimp", 
-            "clams", 
-            "lemongrass", 
-            "kaffir lime leaves", 
+            "Tom Yum broth",
+            "shrimp",
+            "clams",
+            "lemongrass",
+            "kaffir lime leaves",
             "thin rice noodles"
         ],
         calories: 550,
@@ -101,12 +101,12 @@ const receipts: Receipt[] = [
         id: "dlknwfrcoqxm",
         name: "Vietnamese Pho",
         ingredients: [
-            "Beef broth", 
-            "rice noodles", 
-            "raw beef slices", 
-            "Thai basil", 
-            "bean sprouts", 
-            "onions", 
+            "Beef broth",
+            "rice noodles",
+            "raw beef slices",
+            "Thai basil",
+            "bean sprouts",
+            "onions",
             "lime"
         ],
         calories: 480,
@@ -118,10 +118,10 @@ const receipts: Receipt[] = [
         id: "lkuwqdvfndqk",
         name: "Mac & Cheese",
         ingredients: [
-            "Elbow macaroni", 
-            "cheddar cheese", 
-            "milk", 
-            "butter", 
+            "Elbow macaroni",
+            "cheddar cheese",
+            "milk",
+            "butter",
             "flour"
         ],
         calories: 650,
@@ -133,9 +133,9 @@ const receipts: Receipt[] = [
         id: "lkjnfwmpck[",
         name: "Truffle Cream Pasta",
         ingredients: [
-            "Pasta", 
-            "truffle sauce", 
-            "cream", 
+            "Pasta",
+            "truffle sauce",
+            "cream",
             "Parmesan cheese"
         ],
         calories: 600,
@@ -143,20 +143,13 @@ const receipts: Receipt[] = [
         rates: 5,
         image: "09.jpeg",
     },
-]
-
+];
 class ReceiptModel {
-    findAll(): Receipt[] {
+    findAll() {
         return receipts;
     }
-
-    getReceiptById(id: string): Receipt|undefined {
-        return receipts.find(receipt => receipt.id === id)
-    }
-
-    getReceiptsByName(name: string): Receipt[] {
-        return receipts.filter(receipt => receipt.name.toLowerCase().includes(name.toLowerCase()))
+    getReceiptById(id) {
+        return receipts.find(receipt => receipt.id === id);
     }
 }
-
-export default new ReceiptModel
+exports.default = new ReceiptModel;

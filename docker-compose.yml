@@ -1,0 +1,22 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/manga-backend
+      - /manga-backend/node_modules
+    environment:
+      - NODE_ENV=development
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:80"
+    volumes:
+      - ./frontend:/manga-front
+      - /manga-front/node_modules
+    environment:
+      - NODE_ENV=development

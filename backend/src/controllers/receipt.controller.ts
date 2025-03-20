@@ -1,9 +1,17 @@
 import {Request, Response} from 'express'
 import receiptModel from '../models/receipt.model'
+import { Receipt } from "types/receipt";
 
-const getReceipts = (request: Request, response: Response) => {
-    const receipts = receiptModel.findAll()
-
+const getReceipts = (request: Request<{}, {}, {}, {name?:string}>, response: Response) => {
+    const {name} = request.query;
+    let receipts: Receipt[] = [];
+    
+    if (name) {
+        receipts = receiptModel.getReceiptsByName(name)
+    } else {
+        receipts = receiptModel.findAll()
+    }
+    
     response.status(200).json(receipts)
 }
 
