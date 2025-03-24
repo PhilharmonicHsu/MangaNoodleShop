@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 3  # 啟動 2 個 frontend 副本
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: xuyuwei19940909/manga-frontend:v2
+          ports:
+            - containerPort: 80
+          env:
+            - name: NODE_ENV
+              value: "development"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+    - port: 5173
+      targetPort: 80
+      nodePort: 30080  # 可自定，30000~32767 之間
+  type: NodePort

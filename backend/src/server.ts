@@ -27,7 +27,7 @@ app.use(cookieSession({
   maxAge: 5 * 60 * 1000
 }))
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:30080',
     credentials: true
 }))
 app.use(express.json())
