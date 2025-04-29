@@ -1,27 +1,8 @@
-import { Banner } from "types/banner";
+import mongoose, {Schema} from "mongoose";
 
-const banners: Banner[] = [
-    {
-        id: "lefkwopq",
-        name: "Buy one get one free offer",
-        image: "banner01.jpeg"
-    },
-    {
-        id: "rlneiwjg;",
-        name: "30% off all items limited time offer",
-        image: "banner02.jpeg"
-    },
-    {
-        id: "leifj;q",
-        name: "Order noodles and get drinks",
-        image: "banner03.jpeg"
-    }
-]
+const BannerSchema = new Schema({
+    name: {type: String, required: true},
+    image: {type: String, required: true}
+})
 
-class BannerModel {
-    findAll() {
-        return banners;
-    }
-}
-
-export default new BannerModel
+export const Banner = mongoose.model("Banner", BannerSchema)

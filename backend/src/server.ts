@@ -6,9 +6,6 @@ import { resolvers } from './graphql/resolvers'
 import mongoose from 'mongoose'
 import express, {Request, Response} from 'express'
 import cookieSession from 'cookie-session'
-import receiptRouter from './routes/receipt.routes'
-import bannerRouter from './routes/banner.routes'
-import cartRouter from './routes/cartItem.route'
 import userRouter from './routes/user.routes'
 import dotenv from 'dotenv'
 import cors from 'cors'
@@ -42,9 +39,6 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use('/receipts', receiptRouter)
-app.use('/banners', bannerRouter)
-app.use('/cart-items', cartRouter)
 app.use('/users', userRouter)
 
 const startServer = async () => {

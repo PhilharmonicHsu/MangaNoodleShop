@@ -3,21 +3,15 @@ import { useContext } from "react";
 import { CartContext } from "@context/CartContextProvider";
 import { v4 as uuidv4 } from 'uuid'
 
-export default function AddToCart({receipts, receiptId}) {
+export default function AddToCart({targetReceipt}) {
     const cartContext = useContext(CartContext)
 
     const addToCart = async () => {
-        const order = {
-            productId: receiptId,
-            quantity: 1
-        }
-
         const cartItems = cartContext.items;
-        const targetReceipt = receipts.find(receipt => receipt.id === receiptId)
 
         try {
             const targetItem = cartItems.find(
-                cartItem => cartItem.productId === receiptId
+                cartItem => cartItem.receipt.id === targetReceipt.id
             )
     
             if (targetItem) {
@@ -26,11 +20,12 @@ export default function AddToCart({receipts, receiptId}) {
                 const newCartItem = {
                     id: uuidv4(),
                     receipt: {
+                        id: targetReceipt.id,
                         name: targetReceipt.name,
                         price: targetReceipt.price,
                         image: targetReceipt.image,
                     },
-                    quantity: order.quantity
+                    quantity: 1
                 }
         
                 cartItems.push(newCartItem)
@@ -43,7 +38,6 @@ export default function AddToCart({receipts, receiptId}) {
 
             cartContext.updateItems(cartItems)
             cartContext.updateTotalPrice(totalPrice)
-
         } catch (error) {
             console.error("Error fetching noodles:", error);
         }

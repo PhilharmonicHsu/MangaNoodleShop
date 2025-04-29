@@ -78,7 +78,7 @@ export default function Main() {
                         <div className="px-4 pb-4 pt-0 hidden h-0 group-hover:block group-hover:h-full">
                             <div className="flex flex-col xl:flex-row justify-between items-center">
                                 <Rate score={receipt.rates} />
-                                <AddToCart receipts={originalReceipts.current} receiptId={receipt.id} />
+                                <AddToCart targetReceipt={receipt} />
                             </div>
                             
                             <h3 className="text-xl font-bangers text-center xl:text-start">{receipt.calories} Cals</h3>

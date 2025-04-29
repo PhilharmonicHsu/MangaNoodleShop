@@ -64,15 +64,12 @@ const CartDialog = forwardRef(({}, ref) => {
                 return
             }
 
-            try {
-                // 要登入才能點餐
+            if (cartContext.isLogin) {
                 cartContext.updateItems([])
                 cartContext.updateTotalPrice(0)
-            } catch (error) {
-                if (error.response.status === 301) {
-                    alert('Please log in as a member first!')
-                    navigate('/login')
-                }
+            } else {
+                alert('Please log in as a member first!')
+                navigate('/login')
             }
         } else {
             cartContext.updateItems([])

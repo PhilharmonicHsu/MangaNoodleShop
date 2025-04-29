@@ -1,12 +1,12 @@
-import GraphReceiptController from '../controllers/graph_receipt.controller'
-import GraphBannerController from '../controllers/graph_banner.controller'
+import receiptController from '../controllers/receipt.controller'
+import bannerController from '../controllers/banner.controller'
 import { Receipt as IReceipt } from 'types/receipt'
 import { Banner as IBanner } from 'types/banner'
 
 export const resolvers = {
     Query: {
-        receipts: async () => GraphReceiptController.getReceipts(),
-        banners: async () => GraphBannerController.getBanners()
+        receipts: async () => receiptController.getReceipts(),
+        banners: async () => bannerController.getBanners()
     },
     Mutation: {
         addReceipt: async (_: unknown, {
@@ -17,7 +17,7 @@ export const resolvers = {
             rates,
             image
         }: Omit<IReceipt, 'id'>) => {
-            return GraphReceiptController.createReceipt({
+            return receiptController.createReceipt({
                 name,
                 ingredients,
                 calories,
@@ -30,7 +30,7 @@ export const resolvers = {
             name,
             image
         }: Omit<IBanner, 'id'>) => {
-            return GraphBannerController.createBanner({
+            return bannerController.createBanner({
                 name,
                 image
             })

@@ -1,12 +1,19 @@
-import {Request, Response} from 'express'
-import bannerModel from '../models/banner.model'
+import { Banner } from "../models/banner.model";
+import { Banner as IBanner } from "../types/banner";
 
-const getBanners = (request: Request, response: Response) => {
-    const receipts = bannerModel.findAll()
+const getBanners = async () => {
+    const banners = await Banner.find();
 
-    response.status(200).json(receipts)
+    return banners;
+}
+
+const createBanner = async (data: Omit<IBanner, 'id'>) => {
+    const banner = new Banner(data);
+
+    return await banner.save();
 }
 
 export default {
     getBanners,
+    createBanner
 }
