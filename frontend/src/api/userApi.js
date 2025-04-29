@@ -1,6 +1,5 @@
 import api from "./api";
 
-// 取得所有麵類品項
 export const register = async (userInfo) => {
   try {
     const response = await api.post("/users/register", userInfo);

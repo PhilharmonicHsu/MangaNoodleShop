@@ -1,6 +1,5 @@
 import { createPortal } from "react-dom";
 import { forwardRef, useRef, useImperativeHandle, useContext } from "react";
-import { getCartItems, updateOrder, removeOrder, order, cancel } from "@api/noodleApi";
 import { CartContext } from "@context/CartContextProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -22,10 +21,17 @@ const CartDialog = forwardRef(({}, ref) => {
         }
 
         try {
-            await updateOrder(orderId, data)
-            const cartItems = await getCartItems()
-            cartContext.updateItems(cartItems.orders)
-            cartContext.updateTotalPrice(cartItems.total)
+            const currentCartItems = cartContext.items
+            const targetCartItem = currentCartItems.find(cartItem => cartItem.id === orderId)
+            targetCartItem.quantity = data.quantity;
+
+            const totalPrice = currentCartItems.reduce(
+                (currentResult, cartItem) => cartItem.receipt.price * cartItem.quantity + currentResult, 
+                0
+            )
+
+            cartContext.updateItems(currentCartItems)
+            cartContext.updateTotalPrice(totalPrice)
         } catch (error) {
             console.error(error)
         }
@@ -33,10 +39,18 @@ const CartDialog = forwardRef(({}, ref) => {
 
     const handleRemoveItem = async (orderId) => {
         try {
-            await removeOrder(orderId)
-            const data = await getCartItems()
-            cartContext.updateItems(data.orders)
-            cartContext.updateTotalPrice(data.total)
+            const currentCartItems = cartContext.items
+
+            const foundIndex = currentCartItems.findIndex(cartItem => cartItem.id === orderId)
+            currentCartItems.splice(foundIndex, 1)
+
+            const totalPrice = currentCartItems.reduce(
+                (currentResult, cartItem) => cartItem.receipt.price * cartItem.quantity + currentResult, 
+                0
+            )
+       
+            cartContext.updateItems(currentCartItems)
+            cartContext.updateTotalPrice(totalPrice)
         } catch (error) {
             console.error("Error fetching noodles:", error);
         }
@@ -51,7 +65,9 @@ const CartDialog = forwardRef(({}, ref) => {
             }
 
             try {
-                await order()
+                // 要登入才能點餐
+                cartContext.updateItems([])
+                cartContext.updateTotalPrice(0)
             } catch (error) {
                 if (error.response.status === 301) {
                     alert('Please log in as a member first!')
@@ -59,15 +75,8 @@ const CartDialog = forwardRef(({}, ref) => {
                 }
             }
         } else {
-            await cancel()
-        }
-
-        try {
-            const data = await getCartItems()
-            cartContext.updateItems(data.orders)
-            cartContext.updateTotalPrice(data.total)
-        } catch (error) {
-            console.error("Error fetching noodles:", error);
+            cartContext.updateItems([])
+            cartContext.updateTotalPrice(0)
         }
     }
 

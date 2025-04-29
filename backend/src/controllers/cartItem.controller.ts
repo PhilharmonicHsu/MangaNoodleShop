@@ -1,16 +1,17 @@
 import {Request, Response} from 'express'
 import cartModel from '../models/cart.model'
-import receiptModel from '../models/receipt.model'
 import { CartItem } from 'types/cart'
-import { Receipt } from 'types/receipt'
+import { Receipt as IReceipt } from 'types/receipt'
+import GraphReceiptController from './graph_receipt.controller'
 
-
-const getCartItems = (request: Request, response: Response) => {
+const getCartItems = async (request: Request, response: Response) => {
     const cartItems = cartModel.findAll()
+    const receipts = await GraphReceiptController.getReceipts()
+
     let total = 0;
 
     const orders = cartItems.map(item => {
-        const targetReceipt = receiptModel.findAll().find(receipt => receipt.id === item.productId) as Receipt
+        const targetReceipt = receipts.find(receipt => receipt.id === item.productId) as IReceipt
         
         total += (targetReceipt.price * item.quantity)
 

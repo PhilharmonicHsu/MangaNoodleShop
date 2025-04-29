@@ -1,4 +1,9 @@
 // Create your server
+import { ApolloServer } from '@apollo/server'
+import { expressMiddleware } from '@apollo/server/express4'
+import { typeDefs } from './graphql/typeDefs'
+import { resolvers } from './graphql/resolvers'
+import mongoose from 'mongoose'
 import express, {Request, Response} from 'express'
 import cookieSession from 'cookie-session'
 import receiptRouter from './routes/receipt.routes'
@@ -11,6 +16,11 @@ import cors from 'cors'
 dotenv.config()
 
 const app = express();
+
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers
+})
 
 // Middleware
 const SIGN_KEY = process.env.COOKIE_SIGN_KEY
@@ -37,12 +47,33 @@ app.use('/banners', bannerRouter)
 app.use('/cart-items', cartRouter)
 app.use('/users', userRouter)
 
-app.use((request: Request, response: Response) => {
-    response.status(404).send("Page not found!")
-})
+const startServer = async () => {
+  try {
+    const MONGO_URI = process.env.MONGO_URI!
+    await mongoose.connect(MONGO_URI, { dbName: 'manga_noodle_shop' })
+    console.log("Connected to MongoDB")
 
-// Start server
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/`)
-})
+     // Apollo Server
+    await apolloServer.start()
+
+    app.use(
+      "/graphql",
+      express.json(),
+      expressMiddleware(apolloServer)
+    )
+
+    app.use((request: Request, response: Response) => {
+      response.status(404).send("Page not found!")
+    })
+
+
+    const PORT = process.env.PORT || 3000
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}/`)
+    })
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+startServer()

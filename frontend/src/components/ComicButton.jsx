@@ -1,26 +1,11 @@
 import { motion } from "framer-motion";
 import CartDialog from "./CartDialog";
-import { useEffect, useRef, useContext } from "react";
-import { getCartItems } from "@api/noodleApi";
+import { useRef, useContext } from "react";
 import { CartContext } from "@context/CartContextProvider";
 
 export default function ComicButton() {
     const dialogRef = useRef()
     const cartContext = useContext(CartContext)
-    
-    const fetchCartItems = async () => {
-        try {
-            const data = await getCartItems()
-            cartContext.updateItems(data.orders)
-            cartContext.updateTotalPrice(data.total)
-        } catch (error) {
-            console.error("Error fetching noodles:", error);
-        }
-    }
-
-    useEffect(() => {
-        fetchCartItems()
-    }, [])
 
     return (
         <>

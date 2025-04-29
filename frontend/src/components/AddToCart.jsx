@@ -1,10 +1,9 @@
 
 import { useContext } from "react";
-import { orderNoodle, getCartItems } from "@api/noodleApi"
 import { CartContext } from "@context/CartContextProvider";
+import { v4 as uuidv4 } from 'uuid'
 
-
-export default function AddToCart({receiptId}) {
+export default function AddToCart({receipts, receiptId}) {
     const cartContext = useContext(CartContext)
 
     const addToCart = async () => {
@@ -13,16 +12,38 @@ export default function AddToCart({receiptId}) {
             quantity: 1
         }
 
-        try {
-            await orderNoodle(order)
-        } catch (error) {
-            console.error("Error fetching noodles:", error);
-        }
+        const cartItems = cartContext.items;
+        const targetReceipt = receipts.find(receipt => receipt.id === receiptId)
 
         try {
-            const data = await getCartItems()
-            cartContext.updateItems(data.orders)
-            cartContext.updateTotalPrice(data.total)
+            const targetItem = cartItems.find(
+                cartItem => cartItem.productId === receiptId
+            )
+    
+            if (targetItem) {
+                targetItem.quantity += 1;
+            } else {
+                const newCartItem = {
+                    id: uuidv4(),
+                    receipt: {
+                        name: targetReceipt.name,
+                        price: targetReceipt.price,
+                        image: targetReceipt.image,
+                    },
+                    quantity: order.quantity
+                }
+        
+                cartItems.push(newCartItem)
+            }       
+
+            const totalPrice = cartItems.reduce(
+                (currentResult, cartItem) => cartItem.receipt.price * cartItem.quantity + currentResult, 
+                0
+            )
+
+            cartContext.updateItems(cartItems)
+            cartContext.updateTotalPrice(totalPrice)
+
         } catch (error) {
             console.error("Error fetching noodles:", error);
         }

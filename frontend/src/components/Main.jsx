@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react"
-import { getReceipts } from "@api/noodleApi"
+import { useEffect, useRef, useState } from "react"
+import { getReceipts } from "@api/graphqlNoodleApi.js";
 import Rate from "./Rate.jsx";
 import AddToCart from "./AddToCart.jsx";
 
 export default function Main() {
+    const originalReceipts = useRef([])
     const [receipts, setReceipts] = useState([]);
     
     useEffect(() => {
         const fetchNoodles = async () => {
             try {
                 const data = await getReceipts();
+                originalReceipts.current = data
                 setReceipts(data)
             } catch (error) {
               console.error("Error fetching noodles:", error);
@@ -22,22 +24,28 @@ export default function Main() {
     const receiptNameClasses = (nameLength) => {
         const classes = ['block', 'text-center', 'font-bangers']
 
-        if (nameLength > 20) {
-            classes.push('text-2xl')
-        } else {
-            classes.push('text-3xl')
-        }
+        const fontSize = (nameLength > 20) 
+            ? 'text-2xl'
+            : 'text-3xl';
+
+        classes.push(fontSize)
 
         return classes.join(' ')
     }
 
-    const handleSearchReceipts = async (e) => {
-        console.log(123);
-        
+    const handleSearchReceipts = async (e) => {        
         const name = e.target.value;
         try {
-            const data = await getReceipts(name);
-            setReceipts(data)
+            if (name) {
+                const filteredRecepits = originalReceipts.current.filter(recepit => {
+                    return recepit.name.toLowerCase().includes(name.toLowerCase())
+                })
+
+                setReceipts(filteredRecepits)
+            } else {
+                setReceipts(originalReceipts.current)
+
+            }
         } catch (error) {
           console.error("Error fetching noodles:", error);
         }
@@ -70,7 +78,7 @@ export default function Main() {
                         <div className="px-4 pb-4 pt-0 hidden h-0 group-hover:block group-hover:h-full">
                             <div className="flex flex-col xl:flex-row justify-between items-center">
                                 <Rate score={receipt.rates} />
-                                <AddToCart receiptId={receipt.id} />
+                                <AddToCart receipts={originalReceipts.current} receiptId={receipt.id} />
                             </div>
                             
                             <h3 className="text-xl font-bangers text-center xl:text-start">{receipt.calories} Cals</h3>
