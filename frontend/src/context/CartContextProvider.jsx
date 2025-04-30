@@ -8,7 +8,13 @@ export const CartContext = createContext({
 
 export default function CartContextProvider({children}) {
     const [items, setItems] = useState(
-        () => JSON.parse(localStorage.getItem('cartItems') || [])
+        () => {
+            try {
+                return JSON.parse(localStorage.getItem('cartItems') || [])
+            } catch (err) {
+                return [];
+            }
+        }
     )
     const [totalPrice, setTotalPrice] = useState(
         () => localStorage.getItem('totalPrice') || 0
