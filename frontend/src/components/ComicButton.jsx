@@ -35,8 +35,7 @@ export default function ComicButton() {
                     </svg>
                     <div 
                         className="hidden sm:block text-transparent bg-clip-text bg-gradient-to-r from-[#F5C264] to-white w-20"
-                    >
-                        
+                    > 
                         ${cartContext.totalPrice}(
                         {
                             cartContext.items.reduce((prevResult, item) => {

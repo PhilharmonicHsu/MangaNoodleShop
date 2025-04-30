@@ -7,16 +7,24 @@ export const CartContext = createContext({
 })
 
 export default function CartContextProvider({children}) {
-    const [items, setItems] = useState([])
-    const [totalPrice, setTotalPrice] = useState(0)
+    const [items, setItems] = useState(
+        () => JSON.parse(localStorage.getItem('cartItems') || [])
+    )
+    const [totalPrice, setTotalPrice] = useState(
+        () => localStorage.getItem('totalPrice') || 0
+    )
     const [isLogin, setIslogin] = useState(false);
     
     const updateItems = (newItems) => {
-        setItems([...newItems]);
+        localStorage.setItem('cartItems', JSON.stringify(newItems))
+
+        setItems(JSON.parse(localStorage.getItem('cartItems') || []));
     };
 
     const updateTotalPrice = (newTotalPrice) => {
-        setTotalPrice(newTotalPrice)
+        localStorage.setItem('totalPrice', newTotalPrice)
+
+        setTotalPrice(localStorage.getItem('totalPrice'))
     }
 
     const toggleIsLogin = (value) => {

@@ -34,8 +34,8 @@ app.use(cookieSession({
   maxAge: 5 * 60 * 1000
 }))
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
+  origin: process.env.FRONTEND_URI!,
+  credentials: true
 }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -60,10 +60,9 @@ const startServer = async () => {
       response.status(404).send("Page not found!")
     })
 
-
     const PORT = process.env.PORT || 3000
     app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}/`)
+      console.log(`Server is running on ${PORT}`)
     })
   } catch (err) {
     console.error(err);
