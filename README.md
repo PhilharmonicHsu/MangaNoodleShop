@@ -6,25 +6,28 @@ This is a full-stack web project featuring a separate frontend and backend archi
 
 ## 🌐 Live Demo
 
-- 🔗 [Backend GraphQL Playground](https://manga-noodle-shop-backend.vercel.app/)  
+- 🔗 [Frontend](https://manga-noodle-shop.vercel.app/)  
 - 🔗 [GitHub Repository](https://github.com/PhilharmonicHsu/MangaNoodleShop)  
-⚠️ Frontend deployment coming soon...
 
 ---
 
 ## 🧩 Tech Stack
 
 ### Frontend (React + Tailwind CSS)
-- ⚛️ **React 18** – UI framework
-- 💨 **Tailwind CSS** – Utility-first CSS styling
-- 🎨 **Comic-inspired UI** – Custom comic-style design for a fun, immersive experience
-- 🛒 Cart system using `localStorage` to store selected items
+- **React 18** – UI framework
+- **Tailwind CSS** – Utility-first CSS styling
+- **Comic-inspired UI** – Custom comic-style design for a fun, immersive experience
+- Cart system using `localStorage` to store selected items
 
 ### Backend (Express.js + GraphQL)
-- 🧠 **GraphQL (Apollo Server)** – Flexible query language for fetching and mutating data
-- 🚀 **Express.js** – Server framework for routing and middleware
-- 🥫 **MongoDB + Mongoose** – Database for menu items and order management
-- 🍪 **Cookie-session** – Lightweight session and login handling
+- **GraphQL (Apollo Server)** – Flexible query language for fetching and mutating data
+- **Express.js** – Server framework for routing and middleware
+- **MongoDB + Mongoose** – Database for menu items and order management
+- **Cookie-session** – Lightweight session and login handling
+
+### DevOps (Kubernetes)
+- **Docker**
+- **Kubernetes**
 
 ---
 
@@ -41,7 +44,8 @@ This is a full-stack web project featuring a separate frontend and backend archi
 ## 📁 Project Structure
 
 ```
-MangaNoodleShop/ ├── backend/ # Express + GraphQL API 
+MangaNoodleShop/ 
+               ├── backend/ # Express + GraphQL API 
                │ ├── routes/ 
                │ ├── graphql/ 
                │ └── models/ 
@@ -66,7 +70,7 @@ cd MangaNoodleShop
 ```bash
 cd backend
 npm install
-cp .env.example .env   # Configure MONGODB_URI and other variables
+cp .env.example .env
 npm run dev
 ```
 
@@ -74,13 +78,25 @@ npm run dev
 ```bash
 cd frontend
 npm install
-npm start
+npm dev
 ```
 > Node.js v18+ is recommended
 
 ---
 
-## 📸 Screenshots (Coming Soon)
+## 📸 Preview
+### Banner Part
+![Banner](assets/banner.png)
+
+### Menu Part
+![Menu](assets/menu.png)
+
+### Cart Part
+![Cart](assets/cart.png)
+
+### Login & Sign Up
+![Login](assets/login.png)
+![SignUp](assets/sign-up.png)
 
 ---
 
