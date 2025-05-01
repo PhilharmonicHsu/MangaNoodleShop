@@ -6,8 +6,7 @@ This is a full-stack web project featuring a separate frontend and backend archi
 
 ## 🌐 Live Demo
 
-- 🔗 [Frontend](https://manga-noodle-shop.vercel.app/)  
-- 🔗 [GitHub Repository](https://github.com/PhilharmonicHsu/MangaNoodleShop)  
+- 🔗 [Manga Noodle Shop](https://manga-noodle-shop.vercel.app/)
 
 ---
 
